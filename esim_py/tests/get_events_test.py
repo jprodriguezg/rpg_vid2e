@@ -8,7 +8,6 @@ sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
 import cv2
 
 def show_events_by_polarity(events, width, height):
-    print(len(events))
     event_image = np.zeros((height,width,3), np.uint8)
 
     for ii in range(0, len(events)):
@@ -25,6 +24,7 @@ refractory_period = 1e-4
 log_eps = 1e-3
 use_log = True
 H, W = 180, 240
+H, W = 352, 640
 
 image_folder = os.path.join(os.path.dirname(__file__), "data1/images/imgs/")
 timestamps_file = os.path.join(os.path.dirname(__file__), "data1/images/timestamps.txt")
