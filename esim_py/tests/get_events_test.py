@@ -8,7 +8,7 @@ sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
 import cv2
 
 def show_events_by_polarity(events, width, height):
-
+    print(len(events))
     event_image = np.zeros((height,width,3), np.uint8)
 
     for ii in range(0, len(events)):
@@ -26,10 +26,10 @@ log_eps = 1e-3
 use_log = True
 H, W = 180, 240
 
-image_folder = os.path.join(os.path.dirname(__file__), "data/images/images/")
-timestamps_file = os.path.join(os.path.dirname(__file__), "data/images/timestamps.txt")
-save_event_image_folder = os.path.join(os.path.dirname(__file__), "data/images/event_imgs/")
-save_events_folder = os.path.join(os.path.dirname(__file__), "data/images/")
+image_folder = os.path.join(os.path.dirname(__file__), "data1/images/imgs/")
+timestamps_file = os.path.join(os.path.dirname(__file__), "data1/images/timestamps.txt")
+save_event_image_folder = os.path.join(os.path.dirname(__file__), "data1/images/event_imgs/")
+save_events_folder = os.path.join(os.path.dirname(__file__), "data1/images/")
 
 esim = esim_py.EventSimulator(Cp, 
                               Cn, 
@@ -62,7 +62,10 @@ n_ = 500
 iterations = int(len(events)/n_)
 
 for ii in range(iterations):
-    event_image = show_events_by_polarity(events[ii*n_:(ii+1)*n_], W, H)
+    if ((ii+1)*n_>len(events)):
+        event_image = show_events_by_polarity(events[ii*n_:len(events)-1], W, H)
+    else:
+        event_image = show_events_by_polarity(events[ii*n_:(ii+1)*n_], W, H)
     cv2.imwrite(save_event_image_folder+str(ii).zfill(5)+".png", event_image)
     #imgplot = plt.imshow(event_image)
     #plt.show()
